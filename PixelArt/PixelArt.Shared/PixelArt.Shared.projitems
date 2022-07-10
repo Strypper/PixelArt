@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>6279c845-92f8-4333-ab99-3d213163593c</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>PixelArt</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\StringToImageSourceConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DTO\ArtDesign.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DTO\AuthorDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Enums\ArtType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PageModels\ArtPageDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ArtPage.xaml.cs">
+      <DependentUpon>ArtPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ArtPageViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Pages\ArtPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Assets\Icons\DesktopSVG.svg" />
+    <None Include="$(MSBuildThisFileDirectory)Assets\Icons\DualScreenSVG.svg" />
+    <None Include="$(MSBuildThisFileDirectory)Assets\Icons\PhoneSVG.svg" />
+    <None Include="$(MSBuildThisFileDirectory)Assets\Icons\TypoGraphySVG.svg" />
+    <None Include="$(MSBuildThisFileDirectory)Assets\Icons\WallpaperSVG.svg" />
+    <None Include="$(MSBuildThisFileDirectory)Assets\SharedAssets.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--
+		 Add files present in the shared project folder, excluding the ones
+		 explicitly included in the projitem, so files can be added from vscode
+		 without manipulating the projitem file.
+	-->
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\Design1.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\Design2.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\Design3.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\Design4.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\Design5.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\Design6.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\PhoneDesign1.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\PhoneDesign2.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\PhoneDesign3.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\PhoneDesign4.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Logos\PixelArtLogo.png" />
+    <_Globbled_Page Include="$(MSBuildThisFileDirectory)**/*.xaml" Exclude="@(Page);@(ApplicationDefinition)">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </_Globbled_Page>
+    <Page Include="@(_Globbled_Page)" />
+    <_Globbed_Compile Include="$(MSBuildThisFileDirectory)**/*.xaml.cs" Exclude="@(Compile)">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </_Globbed_Compile>
+    <_Globbed_Compile Include="$(MSBuildThisFileDirectory)**/*.cs" Exclude="@(Compile);@(_Globbed_Compile)" />
+    <Compile Include="@(_Globbed_Compile)" />
+    <_Globbed_PRIResource Include="$(MSBuildThisFileDirectory)**/*.resw" Exclude="@(PRIResource)" />
+    <PRIResource Include="@(_Globbed_PRIResource)" />
+    <_Globbed_Content Include="$(MSBuildThisFileDirectory)Assets/**/*.*" Exclude="@(Content)" />
+    <Content Include="@(_Globbed_Content)" />
+    <!-- Mark the files from this folder as being part of WinUI -->
+    <Page Update="$(MSBuildThisFileDirectory)**/*.xaml" XamlRuntime="WinUI" />
+    <ApplicationDefinition Update="$(MSBuildThisFileDirectory)**/*.xaml" XamlRuntime="WinUI" />
+    <!-- Make sure XAML files force reevaluation of up-to-date checks -->
+    <UpToDateCheckInput Include="$(MSBuildThisFileDirectory)**/*.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)ContentDialogs\" />
+    <Folder Include="$(MSBuildThisFileDirectory)UserControls\" />
+  </ItemGroup>
+</Project>

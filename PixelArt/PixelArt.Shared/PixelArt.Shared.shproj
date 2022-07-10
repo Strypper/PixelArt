@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>6279c845-92f8-4333-ab99-3d213163593c</ProjectGuid>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.Common.Default.props" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.Common.props" />
+  <PropertyGroup />
+  <Import Project="PixelArt.Shared.projitems" Label="Shared" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\ArtPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <_Globbed_Compile Remove="Converters\StringToImageSourceConverter.cs" />
+    <_Globbed_Compile Remove="Models\DTO\ArtDesign.cs" />
+    <_Globbed_Compile Remove="Models\DTO\AuthorDTO.cs" />
+    <_Globbed_Compile Remove="Models\Enums\ArtType.cs" />
+    <_Globbed_Compile Remove="Models\PageModels\ArtPageDTO.cs" />
+    <_Globbed_Compile Remove="Pages\ArtPage.xaml.cs" />
+    <_Globbed_Compile Remove="ViewModels\ArtPageViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <_Globbed_Content Remove="Assets\DemoArts\Design1.jpg" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design10.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design11.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design12.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design13.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design14.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design15.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design16.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design17.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design18.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design19.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design2.jpg" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design20.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design21.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design22.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design3.jpg" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design4.jpg" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design5.jpg" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design6.jpg" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design7.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design8.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Design9.jfif" />
+    <_Globbed_Content Remove="Assets\DemoArts\Screenshot_20200704-201733.png" />
+    <_Globbed_Content Remove="Assets\Icons\DesktopSVG.svg" />
+    <_Globbed_Content Remove="Assets\Icons\DualScreenSVG.svg" />
+    <_Globbed_Content Remove="Assets\Icons\PhoneSVG.svg" />
+    <_Globbed_Content Remove="Assets\Icons\TypoGraphySVG.svg" />
+    <_Globbed_Content Remove="Assets\Icons\WallpaperSVG.svg" />
+    <_Globbed_Content Remove="Assets\Logos\PixelArtLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <_Globbled_Page Remove="Pages\ArtPage.xaml" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "PixelArt.Windows": {
+      "commandName": "MsixPackage"
+    }
+  }
+}
