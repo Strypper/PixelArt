@@ -1,23 +1,14 @@
 ﻿<Page
-    mc:Ignorable="d"
-    x:Class="PixelArt.Pages.ArtPage"
+    x:Class="PixelArt.Pages.DualScreenArtPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PixelArt.Pages"
-    xmlns:userControl="using:PixelArt.UserControls"
     xmlns:dto="using:PixelArt.Models.DTO" 
-    xmlns:android="http://uno.ui/android"
-    xmlns:not_android="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-
     <Page.Resources>
-        <local:ArtTemplateSelector x:Key="ArtTemplateSelectorTemplate"
-                                   PhoneTemplate="{StaticResource GridViewPhoneItemTemplate}"
-                                   DesktopAndWebTemplate="{StaticResource GridViewDesktopAndWebItemTemplate}"/>
-
         <DataTemplate x:Key="GridViewDesktopAndWebItemTemplate"
                       x:DataType="dto:ArtDesign">
             <GridViewItem>
@@ -75,60 +66,73 @@
                 </Grid>
             </GridViewItem>
         </DataTemplate>
-
-        <DataTemplate x:Key="GridViewPhoneItemTemplate"
-                      x:DataType="dto:ArtDesign">
-            <userControl:Pixel2ArtFrameUserControl ArtDesign="{x:Bind}"/>
-        </DataTemplate>
-
-        <DataTemplate x:Key="GridViewFooterTemplate">
-            <CommandBar IsOpen="False" 
-                    Grid.Row="1"
-                    DefaultLabelPosition="Right"
-                    VerticalAlignment="Bottom"
-                    HorizontalAlignment="Stretch">
-                <AppBarButton Icon="Add" 
-                              Label="Add"
-                              Background="{ThemeResource SystemAccentColor}"/>
-            </CommandBar>
-        </DataTemplate>
     </Page.Resources>
 
-
-    <!--ItemTemplate="{StaticResource GridViewItemTemplate}"-->
-    <Grid RowDefinitions="auto, *, auto">
-        <Grid VerticalAlignment="Center"
-              HorizontalAlignment="Stretch"
-              Height="80">
-            <Grid.Background>
-                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                    <GradientStop Color="#8a0cc1" Offset="0.0" />
-                    <GradientStop Color="#db0998" Offset="1" />
-                </LinearGradientBrush>
-            </Grid.Background>
-            <Image Source="ms-appx:///Assets/Logos/PixelArtLogo.png"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"/>
-        </Grid>
-
-        <GridView x:Name="ArtGridView"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TwoPaneView>
+            <TwoPaneView.Pane1>
+                <Grid x:Name="Pane1Root">
+                    <ScrollViewer>
+                        <StackPanel x:Name="Pane1StackPanel">
+                            <ListView x:Name="ArtGridView"
                   Grid.Row="1"
                   MinWidth="320"
                   Margin="0,15,0,0"
                   HorizontalAlignment="Center"
                   HorizontalContentAlignment="Center"
                   ItemsSource="{x:Bind artViewModel.PageInfo.ArtDesigns, Mode=OneWay}"
-                  ItemTemplateSelector="{StaticResource ArtTemplateSelectorTemplate}"/>
-        
-        <CommandBar IsOpen="False" 
-                    Grid.Row="2"
-                    DefaultLabelPosition="Right"
-                    VerticalAlignment="Bottom"
-                    HorizontalAlignment="Stretch">
-            <AppBarButton Icon="Add" 
-                          Label="Add ART"
-                          Click="Add_Art"
-                          Background="{ThemeResource SystemAccentColor}"/>
-        </CommandBar>
+                  ItemTemplate="{StaticResource GridViewDesktopAndWebItemTemplate}"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TwoPaneView.Pane1>
+            <TwoPaneView.Pane2>
+                <Grid x:Name="Pane2Root"
+                     Margin="25,0,0,0">
+                    <ScrollViewer x:Name="DetailsContent">
+                        <StackPanel Padding="16">
+                            <TextBlock Text="Mountain.jpg" MaxLines="1"
+                                       Style="{ThemeResource HeaderTextBlockStyle}"/>
+                            <TextBlock Text="Date Taken:"
+                                       Style="{ThemeResource SubheaderTextBlockStyle}"
+                                       Margin="0,24,0,0"/>
+                            <TextBlock Text="8/29/2019 9:55am"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                            <TextBlock Text="Dimensions:"
+                                       Style="{ThemeResource SubheaderTextBlockStyle}"
+                                       Margin="0,24,0,0"/>
+                            <TextBlock Text="800x536"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                            <TextBlock Text="Resolution:"
+                                       Style="{ThemeResource SubheaderTextBlockStyle}"
+                                       Margin="0,24,0,0"/>
+                            <TextBlock Text="96 dpi"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                            <TextBlock Text="Description:"
+                                       Style="{ThemeResource SubheaderTextBlockStyle}"
+                                       Margin="0,24,0,0"/>
+                            <TextBlock Text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna."
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TwoPaneView.Pane2>
+        </TwoPaneView>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="TwoPaneViewStates">
+                <VisualState x:Name="Normal"/>
+                <VisualState x:Name="Wide">
+                    <VisualState.Setters>
+                        <Setter Target="MyTwoPaneView.Pane1Length"
+                            Value="2*"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

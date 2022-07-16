@@ -66,7 +66,7 @@ namespace PixelArt.Models.DTO
             });
             artList.Add(new ArtDesign()
             {
-                Title = "Stuhub",
+                Title = "Stuhub Subject Request",
                 MediaAssetsUrl = "ms-appx:///Assets/DemoArts/PhoneDesign1.png",
                 Love = random.Next(0, 10000),
                 Seen = random.Next(0, 10000),
@@ -74,7 +74,7 @@ namespace PixelArt.Models.DTO
             });
             artList.Add(new ArtDesign()
             {
-                Title = "Stuhub",
+                Title = "Stuhub Subject Detail",
                 MediaAssetsUrl = "ms-appx:///Assets/DemoArts/PhoneDesign2.png",
                 Love = random.Next(0, 10000),
                 Seen = random.Next(0, 10000),
@@ -92,6 +92,14 @@ namespace PixelArt.Models.DTO
             {
                 Title = "Stuhub",
                 MediaAssetsUrl = "ms-appx:///Assets/DemoArts/PhoneDesign4.png",
+                Love = random.Next(0, 10000),
+                Seen = random.Next(0, 10000),
+                Type = ArtType.Mobile
+            });
+            artList.Add(new ArtDesign()
+            {
+                Title = "Petaverse Breeds",
+                MediaAssetsUrl = "ms-appx:///Assets/DemoArts/PhoneDesign5.png",
                 Love = random.Next(0, 10000),
                 Seen = random.Next(0, 10000),
                 Type = ArtType.Mobile

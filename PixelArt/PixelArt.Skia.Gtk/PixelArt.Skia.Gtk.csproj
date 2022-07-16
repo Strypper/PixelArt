@@ -14,6 +14,8 @@
     <UpToDateCheckInput Include="..\PixelArt.Shared\**\*.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.13.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview4" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
     <PackageReference Include="Uno.WinUI.Skia.Gtk" Version="4.4.13" />

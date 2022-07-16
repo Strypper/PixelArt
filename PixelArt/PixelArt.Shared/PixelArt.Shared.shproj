@@ -11,15 +11,22 @@
   <Import Project="PixelArt.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
   <ItemGroup>
+    <UpToDateCheckInput Remove="ContentDialogs\CreateArtDesignContentDialog.xaml" />
     <UpToDateCheckInput Remove="Pages\ArtPage.xaml" />
+    <UpToDateCheckInput Remove="Pages\DualScreenArtPage.xaml" />
+    <UpToDateCheckInput Remove="UserControls\Pixel2ArtFrameUserControl.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <_Globbed_Compile Remove="ContentDialogs\CreateArtDesignContentDialog.xaml.cs" />
+    <_Globbed_Compile Remove="Converters\FromHexToWindowsUIColorConverter.cs" />
     <_Globbed_Compile Remove="Converters\StringToImageSourceConverter.cs" />
     <_Globbed_Compile Remove="Models\DTO\ArtDesign.cs" />
     <_Globbed_Compile Remove="Models\DTO\AuthorDTO.cs" />
     <_Globbed_Compile Remove="Models\Enums\ArtType.cs" />
     <_Globbed_Compile Remove="Models\PageModels\ArtPageDTO.cs" />
     <_Globbed_Compile Remove="Pages\ArtPage.xaml.cs" />
+    <_Globbed_Compile Remove="Pages\DualScreenArtPage.xaml.cs" />
+    <_Globbed_Compile Remove="UserControls\Pixel2ArtFrameUserControl.xaml.cs" />
     <_Globbed_Compile Remove="ViewModels\ArtPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +61,9 @@
     <_Globbed_Content Remove="Assets\Logos\PixelArtLogo.png" />
   </ItemGroup>
   <ItemGroup>
+    <_Globbled_Page Remove="ContentDialogs\CreateArtDesignContentDialog.xaml" />
     <_Globbled_Page Remove="Pages\ArtPage.xaml" />
+    <_Globbled_Page Remove="Pages\DualScreenArtPage.xaml" />
+    <_Globbled_Page Remove="UserControls\Pixel2ArtFrameUserControl.xaml" />
   </ItemGroup>
 </Project>

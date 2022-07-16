@@ -2,6 +2,7 @@
 using PixelArt.Models.Enums;
 using PixelArt.Pages;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PixelArt
 {
@@ -12,6 +13,7 @@ namespace PixelArt
         {
             this.InitializeComponent();
             this.NavigationItems = PixelArtNavigationItems.LoadNavigationItems();
+            ArtCategories.SelectedItem = NavigationItems.FirstOrDefault(item => item.IsSelected == true);
         }
 
         private void ArtCategories_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -26,14 +28,17 @@ namespace PixelArt
         public string ImageIconSource { get; set; }
         public string Content { get; set; }
         public ArtType ArtType { get; set; }
+        public bool IsSelected { get; set; }
 
         public NavigationItem(string imageIconSource, 
                               string content,
-                              ArtType artType)
+                              ArtType artType,
+                              bool isSelected)
         {
             ImageIconSource = imageIconSource;
             Content = content;
             ArtType = artType;
+            IsSelected = isSelected; 
         }
     }
 
@@ -42,11 +47,11 @@ namespace PixelArt
         public static List<NavigationItem> LoadNavigationItems()
         {
             var items = new List<NavigationItem>();
-            items.Add(new NavigationItem("ms-appx:///Assets/Icons/DesktopSVG.svg", "Desktop - Web", ArtType.DesktopAndWeb));
-            items.Add(new NavigationItem("ms-appx:///Assets/Icons/PhoneSVG.svg", "Mobile", ArtType.Mobile));
-            items.Add(new NavigationItem("ms-appx:///Assets/Icons/DualScreenSVG.svg", "Dual Screen Device", ArtType.DualScreenDevice));
-            items.Add(new NavigationItem("ms-appx:///Assets/Icons/WallpaperSVG.svg", "Wallpaper", ArtType.Wallpaper));
-            items.Add(new NavigationItem("ms-appx:///Assets/Icons/TypoGraphySVG.svg", "Typography", ArtType.Typography));
+            items.Add(new NavigationItem("ms-appx:///Assets/Icons/DesktopSVG.svg", "Desktop - Web", ArtType.DesktopAndWeb, true));
+            items.Add(new NavigationItem("ms-appx:///Assets/Icons/PhoneSVG.svg", "Mobile", ArtType.Mobile, false));
+            items.Add(new NavigationItem("ms-appx:///Assets/Icons/DualScreenSVG.svg", "Dual Screen Device", ArtType.DualScreenDevice, false));
+            items.Add(new NavigationItem("ms-appx:///Assets/Icons/WallpaperSVG.svg", "Wallpaper", ArtType.Wallpaper, false));
+            items.Add(new NavigationItem("ms-appx:///Assets/Icons/TypoGraphySVG.svg", "Typography", ArtType.Typography, false));
             return items;
         }
     }

@@ -18,6 +18,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Constants\AppConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ContentDialogs\CreateArtDesignContentDialog.xaml.cs">
+      <DependentUpon>CreateArtDesignContentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FromHexToWindowsUIColorConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringToImageSourceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -29,14 +34,32 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\ArtPage.xaml.cs">
       <DependentUpon>ArtPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\DualScreenArtPage.xaml.cs">
+      <DependentUpon>DualScreenArtPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\Pixel2ArtFrameUserControl.xaml.cs">
+      <DependentUpon>Pixel2ArtFrameUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ArtPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)ContentDialogs\CreateArtDesignContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Pages\ArtPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Pages\DualScreenArtPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\Pixel2ArtFrameUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -68,6 +91,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\PhoneDesign2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\PhoneDesign3.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\PhoneDesign4.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DemoArts\PhoneDesign5.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Logos\PixelArtLogo.png" />
     <_Globbled_Page Include="$(MSBuildThisFileDirectory)**/*.xaml" Exclude="@(Page);@(ApplicationDefinition)">
       <SubType>Designer</SubType>
@@ -88,9 +112,5 @@
     <ApplicationDefinition Update="$(MSBuildThisFileDirectory)**/*.xaml" XamlRuntime="WinUI" />
     <!-- Make sure XAML files force reevaluation of up-to-date checks -->
     <UpToDateCheckInput Include="$(MSBuildThisFileDirectory)**/*.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)ContentDialogs\" />
-    <Folder Include="$(MSBuildThisFileDirectory)UserControls\" />
   </ItemGroup>
 </Project>

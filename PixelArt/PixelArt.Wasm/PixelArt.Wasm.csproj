@@ -40,6 +40,8 @@
     <None Include="wwwroot\web.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.13.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview4" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.3.0" />
     <PackageReference Include="Uno.WinUI.WebAssembly" Version="4.4.13" />

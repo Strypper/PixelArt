@@ -1,0 +1,280 @@
+﻿<UserControl
+    x:Class="PixelArt.UserControls.Pixel2ArtFrameUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PixelArt.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid x:Name="Root"
+          Margin="0,0,10,10"
+          ColumnDefinitions="*, 5, 250"
+          RowDefinitions="auto, auto, 280, auto, auto">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <!--When window width is >=1200 effective pixels-->
+                        <AdaptiveTrigger MinWindowWidth="1201" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Root.ColumnDefinitions[1].Width"                Value="5"/>
+                        <Setter Target="Root.ColumnDefinitions[2].Width"                Value="250"/>
+                        <Setter Target="ArtistInfo.(Grid.Column)"                       Value="2"/>
+                        <Setter Target="Pixel2Frame.(Grid.RowSpan)"                     Value="5"/>
+                        <Setter Target="TitleText.(UIElement.Visibility)"               Value="Visible"/>
+                        <Setter Target="OverviewStack.(UIElement.Visibility)"           Value="Visible"/>
+                        <Setter Target="CommentsList.(UIElement.Visibility)"            Value="Visible"/>
+                        <Setter Target="LoadMoreCommentsButton.(UIElement.Visibility)"  Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="NormalState">
+                    <VisualState.StateTriggers>
+                        <!--When window width is >=720 effective pixels-->
+                        <AdaptiveTrigger MinWindowWidth="721" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="Root.ColumnDefinitions[1].Width"                Value="5"/>
+                        <Setter Target="Root.ColumnDefinitions[2].Width"                Value="250"/>
+                        <Setter Target="ArtistInfo.(Grid.Column)"                       Value="2"/>
+                        <Setter Target="Pixel2Frame.(Grid.RowSpan)"                     Value="5"/>
+                        <Setter Target="TitleText.(UIElement.Visibility)"               Value="Visible"/>
+                        <Setter Target="OverviewStack.(UIElement.Visibility)"           Value="Visible"/>
+                        <Setter Target="CommentsList.(UIElement.Visibility)"            Value="Visible"/>
+                        <Setter Target="LoadMoreCommentsButton.(UIElement.Visibility)"  Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <!--When window width is <720 effective pixels-->
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Root.ColumnDefinitions[1].Width"                Value="0"/>
+                        <Setter Target="Root.ColumnDefinitions[2].Width"                Value="0"/>
+                        <Setter Target="ArtistInfo.(Grid.Column)"                       Value="0"/>
+                        <Setter Target="Pixel2Frame.(Grid.RowSpan)"                     Value="4"/>
+                        <Setter Target="TitleText.(UIElement.Visibility)"               Value="Collapsed"/>
+                        <Setter Target="OverviewStack.(UIElement.Visibility)"           Value="Collapsed"/>
+                        <Setter Target="CommentsList.(UIElement.Visibility)"            Value="Collapsed"/>
+                        <Setter Target="LoadMoreCommentsButton.(UIElement.Visibility)"  Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Viewbox x:Name="Pixel2Frame"
+                 Height="495"
+                 Width="247.5"
+                 Grid.RowSpan="5">
+            <Grid VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  Background="Black"
+                  CornerRadius="20"
+                  ColumnDefinitions="auto, *, auto"
+                  RowDefinitions="auto, *, auto">
+                <Grid Height="70"
+                      Width="300"
+                      Grid.ColumnSpan="3">
+                    <Ellipse Width="15"
+                             Height="15"
+                             Fill="#666d9f"
+                             HorizontalAlignment="Left"
+                             Margin="30,0,0,0"/>
+                    <Border Background="#201f1b"
+                            Height="10"
+                            Width="150"
+                            CornerRadius="4"/>
+                </Grid>
+                <Border Grid.Row="1"
+                                Grid.Column="1">
+                    <FlipView Height="520"
+                                      Width="300">
+                        <FlipViewItem>
+                            <ScrollViewer Height="520">
+                                <Image Source="{x:Bind ArtDesign.MediaAssetsUrl, Mode=OneWay}"
+                                       Stretch="UniformToFill"/>
+                            </ScrollViewer>
+                        </FlipViewItem>
+                        <FlipViewItem>
+                            <ScrollViewer Height="520">
+                                <Image Source="https://intranetblobstorages.blob.core.windows.net/cardpics/Chinh.jpg"
+                                       Stretch="UniformToFill"/>
+                            </ScrollViewer>
+                        </FlipViewItem>
+                    </FlipView>
+                </Border>
+                <Border Grid.Row="1"
+                                Grid.Column="0"
+                                Width="15"/>
+                <Border Grid.Row="1"
+                                Grid.Column="2"
+                                Width="15"/>
+                <Grid Height="70"
+                              Width="300"
+                              Grid.Row="2"
+                              Grid.ColumnSpan="3">
+                    <Border Background="#201f1b"
+                                Height="10"
+                                Width="150"
+                                CornerRadius="4"/>
+                </Grid>
+            </Grid>
+        </Viewbox>
+        <TextBlock x:Name="TitleText"
+                   Grid.Column="2"
+                   Text="{x:Bind ArtDesign.Title, Mode=OneWay}"
+                   FontWeight="Bold"
+                   FontSize="20"/>
+        <StackPanel x:Name="OverviewStack"
+                    Grid.Column="2"
+                    Grid.Row="1"
+                    Margin="0,5,0,0">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
+                    <ToggleButton Margin="0,0,5,0">
+                        <FontIcon Glyph="&#xE19F;" />
+                    </ToggleButton>
+                    <TextBlock Text="{x:Bind ArtDesign.Love, Mode=OneWay}"
+                               Margin="0,0,5,0"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,5,0">
+                    <FontIcon Glyph="&#xE7B3;" 
+                              Margin="0,0,5,0"/>
+                    <TextBlock Text="{x:Bind ArtDesign.Seen, Mode=OneWay}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+            <GridView Margin="0,5,0,0">
+                <GridViewItem>
+                    <Rectangle Width="50"
+                                       Height="50"
+                                       Fill="#ec8c78"/>
+                </GridViewItem>
+                <GridViewItem>
+                    <Rectangle Width="50"
+                                       Height="50"
+                                       Fill="#25aae1"/>
+                </GridViewItem>
+                <GridViewItem>
+                    <Rectangle Width="50"
+                                       Height="50"
+                                       Fill="#d2e540"/>
+                </GridViewItem>
+                <GridViewItem>
+                    <Rectangle Width="50"
+                                       Height="50"
+                                       Fill="#818eb8"/>
+                </GridViewItem>
+            </GridView>
+        </StackPanel>
+        <ListView x:Name="CommentsList"
+                  Grid.Column="2"
+                  Grid.Row="2">
+            <ListViewItem>
+                <RelativePanel Padding="0,5,0,5">
+                    <PersonPicture x:Name="AvatarPic"
+                                                 Width="40"
+                                                 Height="40"
+                                                 RelativePanel.AlignLeftWithPanel="True"
+                                                 RelativePanel.AlignTopWithPanel="True"/>
+                    <StackPanel RelativePanel.RightOf="AvatarPic"
+                                            Margin="5,0,0,0">
+                        <TextBlock Text="Do Duy Hung"/>
+                        <Border Padding="5"
+                                            CornerRadius="3"
+                                            Background="Blue">
+                            <TextBlock Text="Nice Design Brother, wish to implement it now"
+                                                   MaxHeight="55"
+                                                   MaxWidth="160"
+                                                   TextWrapping="Wrap"/>
+                        </Border>
+                        <TextBlock Text="12 minutes ago"
+                                               FontSize="10"/>
+                    </StackPanel>
+
+                </RelativePanel>
+            </ListViewItem>
+            <ListViewItem>
+                <RelativePanel Padding="0,5,0,5">
+                    <PersonPicture x:Name="AvatarPic1"
+                                                 Width="40"
+                                                 Height="40"
+                                                 RelativePanel.AlignLeftWithPanel="True"
+                                                 RelativePanel.AlignTopWithPanel="True"/>
+                    <StackPanel RelativePanel.RightOf="AvatarPic1"
+                                            Margin="5,0,0,0">
+                        <TextBlock Text="Nguyen Hoang Phi Long"/>
+                        <Border Padding="5"
+                                            CornerRadius="3"
+                                            Background="Blue">
+                            <TextBlock Text="I want this, I'm gonna yet it !"
+                                                   MaxHeight="55"
+                                                   MaxWidth="160"
+                                                   TextWrapping="Wrap"/>
+                        </Border>
+                        <TextBlock Text="12 minutes ago"
+                                               FontSize="10"/>
+                    </StackPanel>
+
+                </RelativePanel>
+            </ListViewItem>
+            <ListViewItem>
+                <RelativePanel Padding="0,5,0,5">
+                    <PersonPicture x:Name="AvatarPic2"
+                                                 Width="40"
+                                                 Height="40"
+                                                 RelativePanel.AlignLeftWithPanel="True"
+                                                 RelativePanel.AlignTopWithPanel="True"/>
+                    <StackPanel RelativePanel.RightOf="AvatarPic2"
+                                            Margin="5,0,0,0">
+                        <TextBlock Text="Ha Nhat Tan"/>
+                        <Border Padding="5"
+                                            CornerRadius="3"
+                                            Background="Blue">
+                            <TextBlock Text="Clearly ART"
+                                                   MaxHeight="55"
+                                                   MaxWidth="160"
+                                                   TextWrapping="Wrap"/>
+                        </Border>
+                        <TextBlock Text="12 minutes ago"
+                                               FontSize="10"/>
+                    </StackPanel>
+
+                </RelativePanel>
+            </ListViewItem>
+        </ListView>
+        <HyperlinkButton x:Name="LoadMoreCommentsButton"
+                         Grid.Row="3"
+                         Grid.Column="2"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Content="Load more comments"/>
+        <StackPanel x:Name="ArtistInfo"
+                    Orientation="Horizontal"
+                    Grid.Column="2"
+                    Grid.Row="4">
+            <PersonPicture VerticalAlignment="Center"
+                                   Width="40"
+                                   Height="40"
+                                   Margin="0,0,5,0"
+                                   ProfilePicture="https://intranetblobstorages.blob.core.windows.net/avatarstorage/Viet.jpg"/>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock VerticalAlignment="Center"
+                                   Text="Strypper Vandel Jason"
+                                   Margin="0,0,0,5"/>
+                <ToggleButton Content="Follow"
+                                      VerticalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

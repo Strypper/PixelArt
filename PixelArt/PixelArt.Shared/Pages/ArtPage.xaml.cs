@@ -1,12 +1,13 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using PixelArt.ContentDialogs;
 using PixelArt.Models.DTO;
 using PixelArt.Models.Enums;
-using PixelArt.Models.PageModels;
 using PixelArt.ViewModels;
 using System;
-using System.Linq;
 
 namespace PixelArt.Pages
 {
@@ -18,10 +19,26 @@ namespace PixelArt.Pages
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             artViewModel = new ArtPageViewModel((int)e.Parameter);
+
+            //This is Uno Platform bug fail to bind
+            ArtGridView.ItemsSource = artViewModel.PageInfo.ArtDesigns;
+        }
+
+        private async void Add_Art(object sender, RoutedEventArgs e)
+        {
+            var createArtContentDialog                 = new CreateArtDesignContentDialog();
+            createArtContentDialog.XamlRoot            = this.XamlRoot;
+            createArtContentDialog.PrimaryButtonClick += CreateArtContentDialog_PrimaryButtonClick;
+            await createArtContentDialog.ShowAsync();
+        }
+
+        private void CreateArtContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            //var blob = artViewModel.BlobContainerClient.GetBlobClient("");
         }
     }
 
