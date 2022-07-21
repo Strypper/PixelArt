@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.Storage;
 
@@ -14,15 +15,8 @@ namespace PixelArt.ContentDialogs
 {
     public sealed partial class CreateArtDesignContentDialog : ContentDialog, INotifyPropertyChanged
     {
-        public ObservableCollection<string> ColorsPallete { get; set; } = new ObservableCollection<string>();
-
-        private BitmapImage previewImage = new BitmapImage();
-
-        public BitmapImage PreviewImage
-        {
-            get { return previewImage; }
-            set { previewImage = value; OnPropertyChanged(); }
-        }
+        public ObservableCollection<string> ColorsPallete { get; set; }   = new ObservableCollection<string>();
+        public ObservableCollection<FlipViewDTO> PhotosList { get; set; } = new ObservableCollection<FlipViewDTO>() { new FlipViewDTO() };
 
 
         public CreateArtDesignContentDialog()
@@ -55,13 +49,26 @@ namespace PixelArt.ContentDialogs
             filePicker.FileTypeFilter.Add(".png");
 
 #endif
-            var photo = await filePicker.PickSingleFileAsync();
-            if (photo != null)
+            var files = await filePicker.PickMultipleFilesAsync();
+            //if (photo != null)
+            //{
+            //    var filestream = await photo.(FileAccessMode.Read);
+            //    BitmapImage bitmapImage = new BitmapImage();
+            //    bitmapImage.SetSource(filestream);
+            //    DesktopPreview.Source = bitmapImage;
+            //}
+            foreach (var file in files)
             {
-                var filestream = await photo.OpenAsync(FileAccessMode.Read);
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.SetSource(filestream);
-                DesktopPreview.Source = bitmapImage;
+                var stream = (await file.OpenStreamForReadAsync()).AsRandomAccessStream();//await file.GetScaledImageAsThumbnailAsync(ThumbnailMode.PicturesView, 300);
+                var imageSource = new BitmapImage();
+                await imageSource.SetSourceAsync(stream);
+                PhotosList.Add(new FlipViewDTO()
+                {
+                    FileName = file.Name,
+                    Image = imageSource,
+                    IsButton = false,
+                    IOStream = stream.AsStream()
+                });
             }
         }
 
@@ -84,5 +91,38 @@ namespace PixelArt.ContentDialogs
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    public class FlipViewDTO
+    {
+        public string FileName { get; set; }
+        public BitmapImage Image { get; set; }
+        public bool IsButton { get; set; } = true;
+        public Stream IOStream { get; set; }
+    }
+
+    public class FlipViewTemplateSelector : DataTemplateSelector
+    {
+        private DataTemplate addButtonTemplate;
+
+        public DataTemplate AddButtonTemplate
+        {
+            get { return addButtonTemplate; }
+            set { addButtonTemplate = value; }
+        }
+
+        private DataTemplate imageTemplate;
+
+        public DataTemplate ImageTemplate
+        {
+            get { return imageTemplate; }
+            set { imageTemplate = value; }
+        }
+
+        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        {
+            var flipViewItem = (FlipViewDTO)item;
+            return flipViewItem.IsButton == true ? addButtonTemplate : imageTemplate;
+        }
     }
 }

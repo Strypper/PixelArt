@@ -7,9 +7,8 @@ namespace PixelArt.ViewModels
 {
     public class ArtPageViewModel
     {
-        public ArtPageDTO          PageInfo          { get; set; } = new ArtPageDTO();
-        public BlobContainerClient BlobContainerClient { get; set; } = new BlobContainerClient(AppConstants.PixelArtContainerConnectionString, 
-                                                                                             AppConstants.PixelArtContainerName);
+        public ArtPageDTO          PageInfo            { get; set; } = new ArtPageDTO();
+        public BlobServiceClient   BlobContainerClient { get; set; } = new BlobServiceClient(AppConstants.PixelArtContainerConnectionString);
         public ArtPageViewModel(int ArtTypeKey)
         {
             PageInfo.ArtDesigns = DemoArtAssets.GetDemoArtAssets(ArtTypeKey);

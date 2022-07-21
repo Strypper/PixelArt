@@ -8,6 +8,14 @@ using PixelArt.Models.DTO;
 using PixelArt.Models.Enums;
 using PixelArt.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer.ShareTarget;
+using Windows.Graphics.Imaging;
+using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace PixelArt.Pages
 {
@@ -38,7 +46,19 @@ namespace PixelArt.Pages
 
         private void CreateArtContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            //var blob = artViewModel.BlobContainerClient.GetBlobClient("");
+            var photosList = (sender as CreateArtDesignContentDialog).PhotosList;
+            var imageUrlsList = new List<string>();
+            var blob = artViewModel.BlobContainerClient.GetBlobContainerClient("pixelart");
+            photosList.ToList().ForEach(async photo =>
+            {
+                if (photo != null & photo.IOStream != null)
+                {
+                    BlobClient blobClient = blob.GetBlobClient(photo.FileName);
+                    imageUrlsList.Add(blobClient.Uri.AbsoluteUri);
+                    photo.IOStream.Position = 0;
+                    await blobClient.UploadAsync(photo.IOStream);
+                }
+            });
         }
     }
 

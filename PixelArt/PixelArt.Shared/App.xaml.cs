@@ -59,10 +59,11 @@ namespace PixelArt
                 {
 #if __ANDROID__
 
-                    rootFrame.Navigate(typeof(DualScreenArtPage), args.Arguments);
+                    //rootFrame.Navigate(typeof(DualScreenArtPage), args.Arguments);
 #else
-                    rootFrame.Navigate(typeof(MainPage), args.Arguments);
+                    //rootFrame.Navigate(typeof(MainPage), args.Arguments);
 #endif
+                    rootFrame.Navigate(typeof(MainPage), args.Arguments);
                 }
                 _window.Activate();
             }

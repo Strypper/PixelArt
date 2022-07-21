@@ -8,25 +8,49 @@
     PrimaryButtonText="Create"
     SecondaryButtonText="Cancel"
     DefaultButton="Primary"
+    MinHeight="300"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
     <ContentDialog.Resources>
         <converters:FromHexToWindowsUIColorConverter x:Key="FromHexToWindowsUIColorConverter"/>
 
+        <local:FlipViewTemplateSelector x:Name="FlipViewItemTemplateSelector"
+                                        AddButtonTemplate="{StaticResource FlipViewAddButtonItemTemplate}"
+                                        ImageTemplate="{StaticResource FlipViewItemTemplate}"/>
         <DataTemplate x:Key="ColorItemTemplate"
                       x:DataType="x:String">
             <Rectangle Width="50" Height="50"
                        Fill="{x:Bind Converter={StaticResource FromHexToWindowsUIColorConverter}}"/>
         </DataTemplate>
 
+        <DataTemplate x:Key="FlipViewItemTemplate"
+                      x:DataType="local:FlipViewDTO">
+            <Border Margin="5"
+                    Grid.Row="1"
+                    CornerRadius="4"
+                    BorderThickness="4"
+                    BorderBrush="{StaticResource SystemAccentColor}">
+                <Image Stretch="UniformToFill"
+                       Source="{x:Bind Image, Mode=OneWay}"
+                       Width="450" Height="253.125"/>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="FlipViewAddButtonItemTemplate">
+            <Button Width="450" Height="253.125"
+                    Click="OpenFile_Clicked">
+                <FontIcon Glyph="&#xE109;" FontSize="30" />
+            </Button>
+        </DataTemplate>
+
 
         <Storyboard x:Name="Fade_Animation">
             <DoubleAnimation Storyboard.TargetName="ColorPalleteStatus"
-							     Storyboard.TargetProperty="Opacity"
-							     From="0"
-							     To="1"
-                                 AutoReverse="True"
-							     Duration="0:0:2" />
+							 Storyboard.TargetProperty="Opacity"
+							 From="0"
+							 To="1"
+                             AutoReverse="True"
+							 Duration="0:0:2" />
         </Storyboard>
     </ContentDialog.Resources>
 
@@ -38,26 +62,10 @@
                              Margin="5"
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Center"/>
-                    <Border Margin="5"
-                            Grid.Row="1"
-                            CornerRadius="4"
-                            BorderThickness="4"
-                            BorderBrush="{StaticResource SystemAccentColor}">
-                        <Grid>
-                            <Button Click="OpenFile_Clicked"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
-                                <StackPanel Orientation="Horizontal">
-                                    <SymbolIcon Symbol="OpenFile"
-                                                Margin="0,0,5,0"/>
-                                    <TextBlock Text="Upload File"/>
-                                </StackPanel>
-                            </Button>
-                            <Image x:Name="DesktopPreview" 
-                                   Stretch="UniformToFill"
-                                   Width="450" Height="253.125"/>
-                        </Grid>
-                    </Border>
+                    <FlipView Width="455" Height="280"
+                              Grid.Row="1"
+                              ItemsSource="{x:Bind PhotosList}"
+                              ItemTemplateSelector="{StaticResource FlipViewItemTemplateSelector}"/>
                     <ColorPicker x:Name="ThemeColorPicker"
                                  ColorSpectrumShape="Ring"
                                  Grid.Row="2"
