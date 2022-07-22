@@ -16,12 +16,13 @@ namespace PixelArt.ContentDialogs
     public sealed partial class CreateArtDesignContentDialog : ContentDialog, INotifyPropertyChanged
     {
         public ObservableCollection<string> ColorsPallete { get; set; }   = new ObservableCollection<string>();
-        public ObservableCollection<FlipViewDTO> PhotosList { get; set; } = new ObservableCollection<FlipViewDTO>() { new FlipViewDTO() };
+        public ObservableCollection<FlipViewDTO> PhotosList { get; set; } = new ObservableCollection<FlipViewDTO>() { new FlipViewDTO() { IsButton = true } };
 
 
         public CreateArtDesignContentDialog()
 		{
 			this.InitializeComponent();
+            //PhotosViews.ItemsSource = PhotosList;
         }
 
 		private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -38,17 +39,16 @@ namespace PixelArt.ContentDialogs
             var window = new Microsoft.UI.Xaml.Window();
             var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
             var filePicker = new Windows.Storage.Pickers.FileOpenPicker();
-            filePicker.FileTypeFilter.Add("*");
             WinRT.Interop.InitializeWithWindow.Initialize(filePicker, hwnd);
 
 #else
             var filePicker = new Windows.Storage.Pickers.FileOpenPicker();
             filePicker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+
+#endif
             filePicker.FileTypeFilter.Add(".jpg");
             filePicker.FileTypeFilter.Add(".jpeg");
             filePicker.FileTypeFilter.Add(".png");
-
-#endif
             var files = await filePicker.PickMultipleFilesAsync();
             //if (photo != null)
             //{
@@ -70,6 +70,7 @@ namespace PixelArt.ContentDialogs
                     IOStream = stream.AsStream()
                 });
             }
+            PhotosViews.SelectedIndex = PhotosList.Count > 0 ? 1 : 0 ;
         }
 
         private void AddColor_Clicked(object sender, RoutedEventArgs e)
@@ -119,7 +120,7 @@ namespace PixelArt.ContentDialogs
             set { imageTemplate = value; }
         }
 
-        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        protected override DataTemplate? SelectTemplateCore(object item)
         {
             var flipViewItem = (FlipViewDTO)item;
             return flipViewItem.IsButton == true ? addButtonTemplate : imageTemplate;

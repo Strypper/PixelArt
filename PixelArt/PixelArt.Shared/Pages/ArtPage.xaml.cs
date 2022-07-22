@@ -46,19 +46,19 @@ namespace PixelArt.Pages
 
         private void CreateArtContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var photosList = (sender as CreateArtDesignContentDialog).PhotosList;
-            var imageUrlsList = new List<string>();
-            var blob = artViewModel.BlobContainerClient.GetBlobContainerClient("pixelart");
-            photosList.ToList().ForEach(async photo =>
-            {
-                if (photo != null & photo.IOStream != null)
-                {
-                    BlobClient blobClient = blob.GetBlobClient(photo.FileName);
-                    imageUrlsList.Add(blobClient.Uri.AbsoluteUri);
-                    photo.IOStream.Position = 0;
-                    await blobClient.UploadAsync(photo.IOStream);
-                }
-            });
+            //var photosList = (sender as CreateArtDesignContentDialog).PhotosList;
+            //var imageUrlsList = new List<string>();
+            //var blob = artViewModel.BlobContainerClient.GetBlobContainerClient("pixelart");
+            //photosList.ToList().ForEach(async photo =>
+            //{
+            //    if (photo != null & photo.IOStream != null)
+            //    {
+            //        BlobClient blobClient = blob.GetBlobClient(photo.FileName);
+            //        imageUrlsList.Add(blobClient.Uri.AbsoluteUri);
+            //        photo.IOStream.Position = 0;
+            //        await blobClient.UploadAsync(photo.IOStream);
+            //    }
+            //});
         }
     }
 
